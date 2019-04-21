@@ -68,6 +68,12 @@ class EngineInfo(Resource):
             "average-opponent-diff": data[6].contents[0],
             "draw-rate": data[7].contents[0],
             "games-played": data[8].contents[0],
+
+            # Fields required for shields.io parsing:
+            "schemaVersion": 1,
+            "label": "CCRL Rating",
+            "message": data[2].contents[0],
+            "color": "orange",
         }
 
 
@@ -94,4 +100,4 @@ api.add_resource(EngineInfo404, "/404/<string:name>")
 api.add_resource(EngineInfo404FRC, "/404FRC/<string:name>")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", ssl_context='adhoc')
