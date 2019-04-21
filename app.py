@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, request
 from flask_restful import Resource, Api, abort
 from bs4 import BeautifulSoup
 import re
@@ -58,7 +58,7 @@ class EngineInfo(Resource):
         tr = span.parent.parent
         data = tr.find_all("b")
 
-        return {
+        data = {
             "rank": data[0].contents[0],
             "name": data[1].contents[0].contents[0],
             "rating": data[2].contents[0],
@@ -68,13 +68,16 @@ class EngineInfo(Resource):
             "average-opponent-diff": data[6].contents[0],
             "draw-rate": data[7].contents[0],
             "games-played": data[8].contents[0],
-
-            # Fields required for shields.io parsing:
-            "schemaVersion": 1,
-            "label": "CCRL Rating",
-            "message": data[2].contents[0],
-            "color": "orange",
         }
+
+        if request.args.get('badge'):
+            color = request.args.get('color', 'orange')
+            label = request.args.get('label', 'CCRL%20rating')
+            rating_prefix = request.args.get('rating_prefix', '')
+            rating_postfix = request.args.get('rating_postfix', '')
+            return redirect(f"https://img.shields.io/badge/{label}-{rating_prefix}{data['rating']}{rating_postfix}-{color}.svg", code=302)
+
+        return data
 
 
 class EngineInfo4040(EngineInfo):
