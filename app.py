@@ -100,4 +100,4 @@ api.add_resource(EngineInfo404, "/404/<string:name>")
 api.add_resource(EngineInfo404FRC, "/404FRC/<string:name>")
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", ssl_context='adhoc')
+    app.run(debug=True)
