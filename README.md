@@ -1,3 +1,5 @@
+<img alt="Rating badge service unavailable" src="http://104.196.164.195/404/Stockfish?badge=1&label=Stockfish+CCRL+40%2F4+&color=informational"> <img alt="Rating badge service unavailable" src="http://104.196.164.195/404FRC/Stockfish?badge=1&label=Stockfish+CCRL+40%2F4+FRC&color=brightgreen"> <img alt="Rating badge service unavailable" src="http://104.196.164.195/4040/Goldfish?badge=1&label=Goldfish+CCRL+40%2F40+&color=ff7fb6">
+
 # CCRL Rating API
 
 This is a restful HTTP API to query the [CCRL](http://ccrl.chessdom.com/ccrl/404/) rating lists for computer chess engines. It can be used to fetch overall statistics about any chess engine on any of the three lists:
