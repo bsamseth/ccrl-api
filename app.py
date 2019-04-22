@@ -59,15 +59,15 @@ class EngineInfo(Resource):
         data = tr.find_all("b")
 
         data = {
-            "rank": data[0].contents[0],
+            "rank": data[0].contents[0].replace('\u2011', '-'),
             "name": data[1].contents[0].contents[0],
-            "rating": data[2].contents[0],
-            "rating-pluss": data[3].contents[0],
-            "rating-minus": data[4].contents[0],
-            "score": data[5].contents[0],
-            "average-opponent-diff": data[6].contents[0],
-            "draw-rate": data[7].contents[0],
-            "games-played": data[8].contents[0],
+            "rating": int(data[2].contents[0]),
+            "rating-pluss": int(data[3].contents[0]),
+            "rating-minus": int(data[4].contents[0].replace('\u2212', '-')),  # Subs strange unicode - for ascii -
+            "score": float(data[5].contents[0][:-1]),
+            "average-opponent-diff": float(data[6].contents[0].replace('\u2212', '-')),
+            "draw-rate": float(data[7].contents[0][:-1]),
+            "games-played": int(data[8].contents[0]),
         }
 
         if request.args.get('badge'):
