@@ -1,4 +1,5 @@
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, url_for
+import urllib
 from flask_restful import Resource, Api, abort
 from bs4 import BeautifulSoup
 import re
@@ -68,16 +69,22 @@ class EngineInfo(Resource):
             "average-opponent-diff": float(data[6].contents[0].replace('\u2212', '-')),
             "draw-rate": float(data[7].contents[0][:-1]),
             "games-played": int(data[8].contents[0]),
+            "link": self.resource_url,
         }
 
-        if request.args.get('badge'):
-            color = request.args.get('color', 'orange')
-            label = request.args.get('label', 'CCRL%20rating')
-            rating_prefix = request.args.get('rating_prefix', '')
-            rating_postfix = request.args.get('rating_postfix', '')
-            return redirect(f"https://img.shields.io/badge/{label}-{rating_prefix}{data['rating']}{rating_postfix}-{color}.svg", code=302)
+        if not request.args.get('badge'):
+            return data
 
-        return data
+        params = request.args.copy()
+        color = params.get('color', 'orange')
+        label = params.get('label', 'CCRL%20rating')
+        rating_prefix = params.get('rating_prefix', '')
+        rating_postfix = params.get('rating_postfix', '')
+        if 'cacheSeconds' not in params:
+            params['cacheSeconds'] = 3600 * 24
+        if 'link' not in params:
+            params['link'] = self.resource_url
+        return redirect(f"https://img.shields.io/badge/{label}-{rating_prefix}{data['rating']}{rating_postfix}-{color}.svg?{urllib.parse.urlencode(params)}", code=302)
 
 
 class EngineInfo4040(EngineInfo):
