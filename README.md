@@ -44,6 +44,7 @@ Response:
     "average-opponent-diff": float  # Average rating difference of opponents.
     "draw-rate": float  # Percentage draw rate.
     "games-played": integer  # Number of games recorded for this engine.
+    "link": url  # Link to the CCRL rating list queried.
 }
 ```
 The `<List>` must be one of the following:
