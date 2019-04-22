@@ -105,6 +105,10 @@ class EngineInfo404FRC(EngineInfo):
         return CCRL_404FRC_URL
 
 
+@app.route('/')
+def homepage():
+    return redirect("https://github.com/bsamseth/ccrl-api")
+
 api.add_resource(EngineInfo4040, "/4040/<string:name>")
 api.add_resource(EngineInfo404, "/404/<string:name>")
 api.add_resource(EngineInfo404FRC, "/404FRC/<string:name>")
