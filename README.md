@@ -23,7 +23,7 @@ The latter option is currently available at the following IP:
     http://104.196.164.195
 ```
 
-The reliability of this service is not guaranteed, and the IP could be subject to change, although this will be kept as stable as possible. If the badges at the top of this README has rendered succesfully, the service is available.
+The reliability of this service is not guaranteed, and the IP could be subject to change, although this will be kept as stable as possible. If the badges at the top of this README have rendered succesfully, the service is available.
 
 ### JSON Queries
 
