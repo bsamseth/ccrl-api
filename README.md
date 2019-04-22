@@ -68,6 +68,7 @@ GET /4040/Goldfish%201.13.0
     "average-opponent-diff": 5.5,
     "draw-rate": 26.6,
     "games-played": 751
+    "link": "http://ccrl.chessdom.com/ccrl/4040"
 }
 ```
 
