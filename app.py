@@ -60,31 +60,36 @@ class EngineInfo(Resource):
         data = tr.find_all("b")
 
         data = {
-            "rank": data[0].contents[0].replace('\u2011', '-'),
+            "rank": data[0].contents[0].replace("\u2011", "-"),
             "name": data[1].contents[0].contents[0],
             "rating": int(data[2].contents[0]),
             "rating-pluss": int(data[3].contents[0]),
-            "rating-minus": int(data[4].contents[0].replace('\u2212', '-')),  # Subs strange unicode - for ascii -
+            "rating-minus": int(
+                data[4].contents[0].replace("\u2212", "-")
+            ),  # Subs strange unicode - for ascii -
             "score": float(data[5].contents[0][:-1]),
-            "average-opponent-diff": float(data[6].contents[0].replace('\u2212', '-')),
+            "average-opponent-diff": float(data[6].contents[0].replace("\u2212", "-")),
             "draw-rate": float(data[7].contents[0][:-1]),
             "games-played": int(data[8].contents[0]),
             "link": self.resource_url,
         }
 
-        if not request.args.get('badge'):
+        if not request.args.get("badge"):
             return data
 
         params = request.args.copy()
-        color = params.get('color', 'orange')
-        label = params.get('label', 'CCRL%20rating')
-        rating_prefix = params.get('rating_prefix', '')
-        rating_postfix = params.get('rating_postfix', '')
-        if 'cacheSeconds' not in params:
-            params['cacheSeconds'] = 3600 * 24
-        if 'link' not in params:
-            params['link'] = self.resource_url
-        return redirect(f"https://img.shields.io/badge/{label}-{rating_prefix}{data['rating']}{rating_postfix}-{color}.svg?{urllib.parse.urlencode(params)}", code=302)
+        color = params.get("color", "orange")
+        label = params.get("label", "CCRL%20rating")
+        rating_prefix = params.get("rating_prefix", "")
+        rating_postfix = params.get("rating_postfix", "")
+        if "cacheSeconds" not in params:
+            params["cacheSeconds"] = 3600 * 24
+        if "link" not in params:
+            params["link"] = self.resource_url
+        return redirect(
+            f"https://img.shields.io/badge/{label}-{rating_prefix}{data['rating']}{rating_postfix}-{color}.svg?{urllib.parse.urlencode(params)}",
+            code=302,
+        )
 
 
 class EngineInfo4040(EngineInfo):
@@ -105,9 +110,10 @@ class EngineInfo404FRC(EngineInfo):
         return CCRL_404FRC_URL
 
 
-@app.route('/')
+@app.route("/")
 def homepage():
     return redirect("https://github.com/bsamseth/ccrl-api")
+
 
 api.add_resource(EngineInfo4040, "/4040/<string:name>")
 api.add_resource(EngineInfo404, "/404/<string:name>")
