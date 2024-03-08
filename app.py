@@ -8,7 +8,7 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
-CCRL_BASE_URL = "http://ccrl.chessdom.com/ccrl/"
+CCRL_BASE_URL = "http://computerchess.org.uk/ccrl/"
 CCRL_4040_URL = CCRL_BASE_URL + "4040"
 CCRL_404_URL = CCRL_BASE_URL + "404"
 CCRL_404FRC_URL = CCRL_BASE_URL + "404FRC"
